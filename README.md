@@ -49,14 +49,12 @@ Reproducibility
 
 The pipeline supports both **local CLI** and **Slurm** execution.
 
-Prerequisites
-^^^^^^^^^^^^^
+## Prerequisites:
 
 - Python environment with PyTorch, transformers, sentence-transformers, datasets, faiss, numpy, pandas, tqdm.
 - GPU recommended for local runs (the default model is an 8B LLM in 4-bit).
 
-Local CLI
-^^^^^^^^^
+### Local CLI:
 
 1. Run the main experiment:
 
@@ -79,8 +77,7 @@ Local CLI
 	- [plot_paper_figures.py](plot_paper_figures.py)
 	- Outputs to [PaperArtifacts/](PaperArtifacts/)
 
-Slurm
-^^^^^
+### Slurm Execution
 
 Use the provided Slurm script for cluster execution:
 
@@ -92,7 +89,7 @@ Typical workflow:
 2. Submit with ``sbatch``.
 3. Collect outputs from [Results/](Results/) and re-run analysis/plots locally or on the cluster.
 
-Output Artifacts
+### Output Artifacts
 ----------------
 
 After running the pipeline, key outputs include:
@@ -103,19 +100,40 @@ After running the pipeline, key outputs include:
 - [AnalyzeResults/table_leakage_by_attack_used.csv](AnalyzeResults/table_leakage_by_attack_used.csv)
 - [AnalyzeResults/table_utility_by_k_with_latency.csv](AnalyzeResults/table_utility_by_k_with_latency.csv)
 
-Notes
+### Notes
 -----
 
 - The experiment uses the EnronQA-derived dataset specified in [abac_rag.py](abac_rag.py).
 - Canary strings are injected into a subset of confidential chunks to precisely measure leakage.
 - Post-filter baselines can still incur pre-filter exposure and evidence starvation, which is explicitly measured.
 
-License
+## Citation
+
+If you find this work useful in your research, please consider citing:
+
+```BibTeX
+@Article{Oz2026,
+  author   = {Gulser Oz and Fesih Keskin},
+  journal  = {},
+  title    = {},
+  year     = {2026},
+  issn     = {},
+  pages    = {},
+  doi      = {},
+  keywords = {},
+  url      = {},
+}
+```
+###  License
 -------
+This repository is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-See the upstream Elsevier CAS bundle license in [cas-sc-template.tex](cas-sc-template.tex) for the LaTeX template. The code in this repository is intended for research and reproducibility purposes.
-
-Acknowledgments
+### Acknowledgments
 ---------------
 
-Numerical calculations were performed at TUBITAK ULAKBIM High Performance and Grid Computing Center (TRUBA). We also thank the creators of the EnronQA benchmark for enabling multi-user email retrieval research.
+Numerical calculations were performed at TUBITAK ULAKBIM High Performance and Grid Computing Center ([TRUBA](https://www.truba.gov.tr/index.php/en/main-page/)). We also thank the creators of the EnronQA benchmark for enabling multi-user email retrieval research.
+
+---
+For questions or contributions, please open an issue or pull request!
+
+---
