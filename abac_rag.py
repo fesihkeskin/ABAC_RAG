@@ -31,15 +31,14 @@ import pickle
 
 import warnings, os
 
-warnings.filterwarnings("ignore")               # Tüm uyarıları kapat (agresif)
-# Veya sadece belirli modülleri:
+warnings.filterwarnings("ignore")               # Disable all warnings (aggressive)
+# Or only specific modules:
 warnings.filterwarnings("ignore", category=UserWarning, module="torch")
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# CUDA spesifik sessizleştirme (en çok çıkanlar)
+# CUDA-specific silencing (most common)
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"        # tek GPU varsa
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"        # TensorFlow varsa
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"        # If TensorFlow is present
 os.environ["TORCH_DISTRIBUTED_DEBUG"] = "OFF"
 
 # Setup logging
@@ -84,10 +83,6 @@ def parse_args():
 
 args = parse_args()
 
-# override K_LIST
-if args.k_list:
-    K_LIST[:] = [int(x.strip()) for x in args.k_list.split(",") if x.strip()]
-
 # override systems list
 if args.systems:
     SYSTEMS_RUN = [s.strip() for s in args.systems.split(",") if s.strip()]
@@ -129,6 +124,10 @@ CHUNK_TOKENIZER_NAME = "bert-base-uncased"
 
 K_LIST = [3, 5, 10]
 FETCH_K = 100
+
+# override K_LIST
+if args.k_list:
+    K_LIST[:] = [int(x.strip()) for x in args.k_list.split(",") if x.strip()]
 
 SENSITIVE_KEYWORDS = {
     "confidential", "secret", "private", "restricted", "internal use only",
