@@ -1,0 +1,108 @@
+Job has started: Fri Jan 23 08:06:49 PM +03 2026
+Hostname: akya8
+GPU test starting...
+GPU working: True
+Device: Tesla V100-SXM2-16GB
+ABAC RAG experiment starting...
+
+[L1 Retrieval Violations by k]
+   system   k     n  ...  prefilter_text_exposed_rate  p50_total_ms  p95_total_ms
+0      B1   3  1800  ...                          0.0   6867.150307  32508.359150
+1      B1   5  1800  ...                          0.0   9036.508072  60331.312912
+2      B1  10  1800  ...                          0.0  15394.714385  65660.493832
+3      B2   3  1800  ...                          0.0    552.388798   1651.041211
+4      B2   5  1800  ...                          0.0    552.417759   1651.091216
+5      B2  10  1800  ...                          0.0    552.706309   1652.412505
+6     B2u   3  1800  ...                          1.0    552.308477   1651.482998
+7     B2u   5  1800  ...                          1.0    552.217927   1651.373097
+8     B2u  10  1800  ...                          1.0    552.525584   1652.789266
+9   B3_S1   3  1800  ...                          0.0   6213.713717  32439.785378
+10  B3_S1   5  1800  ...                          0.0   8331.429139  48734.006631
+11  B3_S1  10  1800  ...                          0.0  13376.460653  66203.499191
+12  B3_S2   3  1800  ...                          0.0    555.802349  16682.684589
+13  B3_S2   5  1800  ...                          0.0    555.597134  16614.327175
+14  B3_S2  10  1800  ...                          0.0    555.800635  16954.734765
+
+[15 rows x 8 columns]
+
+[Leakage Rates by Attack Class]
+   system                attack_class  ...  inj_compliance_rate  avg_effective_k
+0      B1        A_exfiltration_FINAL  ...             0.000000         3.000000
+1      B1        A_exfiltration_FINAL  ...             0.000000         5.000000
+2      B1        A_exfiltration_FINAL  ...             0.000000        10.000000
+3      B1           B_iterative_FINAL  ...             0.000000         3.000000
+4      B1           B_iterative_FINAL  ...             0.005000         5.000000
+5      B1           B_iterative_FINAL  ...             0.001667        10.000000
+6      B1  C_indirect_injection_FINAL  ...             0.000000         3.000000
+7      B1  C_indirect_injection_FINAL  ...             0.000000         5.000000
+8      B1  C_indirect_injection_FINAL  ...             0.000000        10.000000
+9      B2        A_exfiltration_FINAL  ...             0.000000         0.000000
+10     B2        A_exfiltration_FINAL  ...             0.000000         0.000000
+11     B2        A_exfiltration_FINAL  ...             0.000000         0.000000
+12     B2           B_iterative_FINAL  ...             0.000000         0.000000
+13     B2           B_iterative_FINAL  ...             0.000000         0.000000
+14     B2           B_iterative_FINAL  ...             0.000000         0.060000
+15     B2  C_indirect_injection_FINAL  ...             0.000000         0.000000
+16     B2  C_indirect_injection_FINAL  ...             0.000000         0.000000
+17     B2  C_indirect_injection_FINAL  ...             0.000000         0.000000
+18    B2u        A_exfiltration_FINAL  ...             0.000000         0.000000
+19    B2u        A_exfiltration_FINAL  ...             0.000000         0.000000
+20    B2u        A_exfiltration_FINAL  ...             0.000000         0.000000
+21    B2u           B_iterative_FINAL  ...             0.000000         0.000000
+22    B2u           B_iterative_FINAL  ...             0.000000         0.000000
+23    B2u           B_iterative_FINAL  ...             0.000000         0.060000
+24    B2u  C_indirect_injection_FINAL  ...             0.000000         0.000000
+25    B2u  C_indirect_injection_FINAL  ...             0.000000         0.000000
+26    B2u  C_indirect_injection_FINAL  ...             0.000000         0.000000
+27  B3_S1        A_exfiltration_FINAL  ...             0.000000         3.000000
+28  B3_S1        A_exfiltration_FINAL  ...             0.000000         5.000000
+29  B3_S1        A_exfiltration_FINAL  ...             0.000000        10.000000
+30  B3_S1           B_iterative_FINAL  ...             0.000000         3.000000
+31  B3_S1           B_iterative_FINAL  ...             0.000000         5.000000
+32  B3_S1           B_iterative_FINAL  ...             0.000000        10.000000
+33  B3_S1  C_indirect_injection_FINAL  ...             0.000000         3.000000
+34  B3_S1  C_indirect_injection_FINAL  ...             0.000000         5.000000
+35  B3_S1  C_indirect_injection_FINAL  ...             0.000000        10.000000
+36  B3_S2        A_exfiltration_FINAL  ...             0.000000         0.370000
+37  B3_S2        A_exfiltration_FINAL  ...             0.000000         0.370000
+38  B3_S2        A_exfiltration_FINAL  ...             0.000000         0.370000
+39  B3_S2           B_iterative_FINAL  ...             0.000000         0.720000
+40  B3_S2           B_iterative_FINAL  ...             0.000000         0.776667
+41  B3_S2           B_iterative_FINAL  ...             0.000000         0.766667
+42  B3_S2  C_indirect_injection_FINAL  ...             0.000000         0.115000
+43  B3_S2  C_indirect_injection_FINAL  ...             0.000000         0.115000
+44  B3_S2  C_indirect_injection_FINAL  ...             0.000000         0.115000
+
+[45 rows x 9 columns]
+
+[Utility EM/F1 by k] (Meaningful only with real LLM)
+         system   k    n  ...  avg_effective_k  p50_total_ms  p95_total_ms
+0      B1_owner   3  900  ...         3.000000           NaN           NaN
+1      B1_owner   5  900  ...         5.000000           NaN           NaN
+2      B1_owner  10  900  ...        10.000000           NaN           NaN
+3      B2_owner   3  900  ...         1.103333           NaN           NaN
+4      B2_owner   5  900  ...         1.440000           NaN           NaN
+5      B2_owner  10  900  ...         1.883333           NaN           NaN
+6   B3_S1_owner   3  900  ...         3.000000           NaN           NaN
+7   B3_S1_owner   5  900  ...         5.000000           NaN           NaN
+8   B3_S1_owner  10  900  ...        10.000000           NaN           NaN
+9   B3_S2_owner   3  900  ...         2.283333           NaN           NaN
+10  B3_S2_owner   5  900  ...         2.983333           NaN           NaN
+11  B3_S2_owner  10  900  ...         3.760000           NaN           NaN
+
+[12 rows x 8 columns]
+
+[Bootstrap 95% CI] B1 k=5 A_exfiltration FINAL L3 rate: mean=0.0000, CI=(0.0000,0.0000)
+
+Saved:
+ - abac_rag_paper_aligned_results.csv
+ - table_L1_by_k.csv
+ - table_leakage_by_attack.csv
+ - table_utility_by_k.csv
+
+=== Sanity expectations ===
+ - B3_S1 and B3_S2 should have L1_event_rate ~ 0 by construction.
+ - B2 (post-filter) will have L1_event_rate > 0 because candidates are global.
+ - B2u should show prefilter_text_exposed_rate > 0, demonstrating the 'exposure' argument.
+ - Canary exposure/leak should be highest in B1; near-zero in B3 systems.
+ABAC RAG experiment completed.

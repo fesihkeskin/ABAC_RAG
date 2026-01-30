@@ -1,0 +1,14 @@
+
+\subsection{Reproducibility checklist}
+\label{app:repro_checklist}
+A complete reproduction requires:
+\begin{itemize}
+  \item Dataset source and split definition (train/dev/test).
+  \item Corpus sampling procedure and corpus size used for indexing.
+  \item Chunking and tokenization settings.
+  \item Embedding model and vector-index configuration.
+  \item ABAC policy predicates and required metadata fields.
+  \item Security workload templates, attack-class definitions, and attacker/victim selection procedure.
+  \item Leakage detectors and thresholds (L1/L2/L3 and auxiliary exposure flags).
+  \item Scripts that regenerate paper tables and figures from CSV artifacts.
+\end{itemize}

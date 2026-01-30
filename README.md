@@ -1,0 +1,121 @@
+ABAC-Enforced Retrieval for Secure Multi-Tenant RAG
+===================================================
+
+This repository contains the code, data-processing utilities, and paper artifacts for the study on policy-bound retrieval with Attribute-Based Access Control (ABAC) in Retrieval-Augmented Generation (RAG). The main experiment implements multiple retrieval systems (global, post-filter baselines, and ABAC-enforced retrieval), evaluates security leakage under adversarial prompts, and reports utility/latency trade-offs.
+
+Architecture
+------------
+
+The system enforces ABAC at retrieval time by separating policy decision (PDP) from enforcement (PEP). The retriever acts as the PEP and consults the PDP before candidates can enter the prompt context.
+
+See the architecture diagram in [abac_rag_architecture.png](abac_rag_architecture.png).
+
+Repository Contents
+-------------------
+
+- Main experiment: [abac_rag.py](abac_rag.py)
+- Analysis and table generation: [analyze_results.py](analyze_results.py)
+- Paper figure generation: [plot_paper_figures.py](plot_paper_figures.py)
+- Paper artifact bundle (alternative entry): [build_paper_artifacts.py](build_paper_artifacts.py)
+- Ablation table builder: [build_ablation_table.py](build_ablation_table.py)
+- Example selection for prompt comparison: [find_final_b1_examples.py](find_final_b1_examples.py)
+- Prompt k=3 extractor for figures: [extract_k3_from_prompt.py](extract_k3_from_prompt.py)
+- Post-hoc guard for B3b security results: [posthoc_guard_b3b.py](posthoc_guard_b3b.py)
+- Paper LaTeX template: [cas-sc-template.tex](cas-sc-template.tex)
+
+Summary of Methods
+------------------
+
+- **Policy-bound retrieval:** ABAC policies are enforced during retrieval so unauthorized chunks are never eligible for inclusion in the prompt context.
+- **Attack suites:** Cross-tenant exfiltration, iterative extraction, and indirect prompt injection.
+- **Leakage metrics:**
+  - **L1**: unauthorized chunks appearing in retrieved top-$k$.
+  - **L2**: unauthorized disclosure based on text overlap and semantic similarity.
+  - **L3**: canary leakage (exact canary strings appearing in outputs).
+- **Utility metrics:** EM/F1 for QA tasks on authorized data.
+- **Latency:** aggregated retrieval, policy, fetch, and generation times.
+
+Key Results (Paper-Aligned)
+---------------------------
+
+- ABAC-enforced retrieval eliminates policy-violating retrieval ($L1=0$ for $k\in\{3,5,10\}$) in the paper-aligned runs.
+- Global retrieval and post-filtering baselines exhibit non-zero policy violations and higher leakage under adversarial prompting.
+- Utility is preserved with comparable EM/F1 on authorized QA; latency remains in the low-second range for typical settings.
+
+These values are produced from the CSVs in [Results/](Results/) and the derived tables in [AnalyzeResults/](AnalyzeResults/).
+
+Reproducibility
+---------------
+
+The pipeline supports both **local CLI** and **Slurm** execution.
+
+Prerequisites
+^^^^^^^^^^^^^
+
+- Python environment with PyTorch, transformers, sentence-transformers, datasets, faiss, numpy, pandas, tqdm.
+- GPU recommended for local runs (the default model is an 8B LLM in 4-bit).
+
+Local CLI
+^^^^^^^^^
+
+1. Run the main experiment:
+
+	- Entry point: [abac_rag.py](abac_rag.py)
+	- Typical arguments:
+	  - ``--max_email_rows`` (limit corpus size for quick tests)
+	  - ``--max_qa_utility`` and ``--max_qa_security``
+	  - ``--n_trials``
+	  - ``--systems`` (comma list, e.g., ``B1,B2,B2u,B3_S1,B3_S2``)
+	  - ``--k_list`` (e.g., ``3,5,10``)
+	  - ``--checkpoint_dir`` and ``--hf_cache_dir``
+
+2. Analyze results and build tables:
+
+	- [analyze_results.py](analyze_results.py)
+	- Outputs to [AnalyzeResults/](AnalyzeResults/)
+
+3. Generate paper figures:
+
+	- [plot_paper_figures.py](plot_paper_figures.py)
+	- Outputs to [PaperArtifacts/](PaperArtifacts/)
+
+Slurm
+^^^^^
+
+Use the provided Slurm script for cluster execution:
+
+- [run_abac_exp.slurm](run_abac_exp.slurm)
+
+Typical workflow:
+
+1. Edit Slurm parameters (partition, GPU, time, and environment activation).
+2. Submit with ``sbatch``.
+3. Collect outputs from [Results/](Results/) and re-run analysis/plots locally or on the cluster.
+
+Output Artifacts
+----------------
+
+After running the pipeline, key outputs include:
+
+- [Results/abac_rag_paper_aligned_results.csv](Results/abac_rag_paper_aligned_results.csv)
+- [AnalyzeResults/abac_rag_paper_aligned_results_flat.csv](AnalyzeResults/abac_rag_paper_aligned_results_flat.csv)
+- [AnalyzeResults/table_L1_by_k_used.csv](AnalyzeResults/table_L1_by_k_used.csv)
+- [AnalyzeResults/table_leakage_by_attack_used.csv](AnalyzeResults/table_leakage_by_attack_used.csv)
+- [AnalyzeResults/table_utility_by_k_with_latency.csv](AnalyzeResults/table_utility_by_k_with_latency.csv)
+
+Notes
+-----
+
+- The experiment uses the EnronQA-derived dataset specified in [abac_rag.py](abac_rag.py).
+- Canary strings are injected into a subset of confidential chunks to precisely measure leakage.
+- Post-filter baselines can still incur pre-filter exposure and evidence starvation, which is explicitly measured.
+
+License
+-------
+
+See the upstream Elsevier CAS bundle license in [cas-sc-template.tex](cas-sc-template.tex) for the LaTeX template. The code in this repository is intended for research and reproducibility purposes.
+
+Acknowledgments
+---------------
+
+Numerical calculations were performed at TUBITAK ULAKBIM High Performance and Grid Computing Center (TRUBA). We also thank the creators of the EnronQA benchmark for enabling multi-user email retrieval research.

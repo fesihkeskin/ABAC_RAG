@@ -1,0 +1,51 @@
+ABAC/
+# Root of the project
+├── AnalyzeResults/
+│    
+│   ├── abac_paper_FINAL_B1_flagged_examples.csv
+│   ├── abac_paper_PROMPT_comparison.csv
+│   ├── abac_paper_PROMPT_comparison_summary.csv
+│   ├── abac_paper_PROMPT_k3.csv
+│   ├── abac_paper_PROMPT_k3_fig.csv
+│   ├── abac_paper_subset.csv
+│   ├── abac_paper_subset_FINAL.csv
+│   ├── abac_rag_paper_aligned_results_flat.csv
+│   ├── table_L1_by_k_used.csv
+│   ├── table_leakage_by_attack_used.csv
+│   └── table_utility_by_k_with_latency.csv
+├── PaperArtifacts/
+│    
+│   ├── fig_L1_rate_vs_k.eps
+│   ├── fig_L1_rate_vs_k.png
+│   ├── fig_L2_by_attack.eps
+│   ├── fig_L2_by_attack.png
+│   ├── fig_latency_security.eps
+│   ├── fig_latency_security.png
+│   ├── fig_latency_utility.eps
+│   └── fig_latency_utility.png
+├── References/
+│    
+│   ├── create_project_structure.py
+│   └── project_structure.txt
+├── Results/
+│    
+│   ├── abac_rag_paper_aligned_results.csv
+│   ├── table_L1_by_k.csv
+│   ├── table_leakage_by_attack.csv
+│   └── table_utility_by_k.csv
+├── README.md
+├── abac_error_4517770.err
+├── abac_rag.py
+├── abac_rag_architecture.png
+├── abac_rag_paper_aligned_results.csv
+├── abac_result_4517770.out
+├── analyze_results.py
+├── build_ablation_table.py
+├── build_paper_artifacts.py
+├── cas-sc-template.tex
+├── extract_k3_from_prompt.py
+├── find_final_b1_examples.py
+├── plot_paper_figures.py
+├── posthoc_guard_b3b.py
+├── reproducibility_checklist.txt
+└── run_abac_exp.slurm
